@@ -1,0 +1,77 @@
+/*
+POPOVER
+TODO: BEMify
+*/
+
+.popout-popover {
+    display: inline-block;
+    position: relative;
+    background: #FFF;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    -webkit-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.15);
+    box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.15);
+    color: #222;
+    font-size: 1rem;
+    font-weight: normal;
+    max-width: 900px;
+    min-width: 150px; /* default should probably be 0 */
+    padding: 12px;
+    position: absolute;
+    text-align: left;
+    z-index: 1010; /* below modal and above file cabinet ribbon */
+}
+
+/* ------------
+POPOVER ARROW
+------------ */
+
+.popout-popover-arrow {
+    text-transform: none;
+}
+.popout-popover-arrow .popout-popover-target {
+    position: relative;
+}
+.popout-popover-arrow .popout-popover-target:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid rgba(0,0,0,0.2);
+    bottom: -11px;
+}
+.alignR .popout-popover-arrow .active .popout-popover-target:after {
+    bottom: -11px;
+}
+
+
+/* --------------------
+ COLORS
+ -------------------*/
+
+.popout-popoverIcon-alt .icon {
+    color: #ffffff;
+}
+
+
+/* ------------------
+SIZES
+------------------ */
+
+.popout-popover-sm .popout-popover-content {
+    min-width: 0; /* this should probably be the default value, instead of belonging to the -sm modifier */
+}
+help-popout-popover.helpPopover-sm .popout-popover-content {
+    min-width: 150px;
+}
+.popout-popover-md .popout-popover-content {
+    width: 250px;
+}
+.popout-popover-lg .popout-popover-content {
+    width: 500px;
+}

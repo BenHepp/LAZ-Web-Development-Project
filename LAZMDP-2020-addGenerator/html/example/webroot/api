@@ -1,0 +1,15 @@
+<?php
+use LAZ\objects\library\Router\Application;
+use LAZ\objects\tools\Logger;
+use LAZ\example\api\ExampleApiRouter;
+
+$_ENV['ROOT_WWW_PATH'] = "/var/www";
+require_once $_ENV['ROOT_WWW_PATH']."/html/objects/config/config.inc.php";
+require_once $_ENV['ROOT_WWW_PATH'] . "/html/example/src/autoload.php";
+
+session_start();
+
+$logger = new Logger('ExampleApiApplication');
+$router = new ExampleApiRouter();
+$application = new Application($logger, $router);
+$application->run();

@@ -1,0 +1,309 @@
+#game-screen{
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    /* top: 75px; */
+}
+
+.container {
+    margin: 1%;
+    vertical-align: middle;
+    display: inline-block;
+}
+/*Congrats Animation CSS starts here*/
+@keyframes mymove {
+    0%   {top: 1500px; left: 80px;}
+    15%  {top: 900px; left: 40px;}
+    25%  {top: 800px; left: 20px;}
+    35%  {top: 700px; left: 10px;}
+    45%  {top: 600px; left: 20px;}
+    55%  {top: 500px; left: 40x;}
+    65% {top: 400px; left: 80px;}
+    75% {top: 300px; left: 40px;}
+    85% {top: 200px; left: 20px;}
+    95% {top: 100px; left: 10px;}
+    100% {top: -50px; left: 20px;}
+}
+
+@keyframes expand-bounce {
+    0% {
+        transform: scale(.1);
+        top: 20%;
+        left: -30%;
+    }
+    20% {
+        transform: scale(.5);
+    }
+    40% {
+        transform: scale(.4);
+    }
+    60% {
+        transform: scale(.85);
+    }
+    60% {
+        transform: scale(.7);
+    }
+    100% {
+        transform: scale(1);
+        top: 0%;
+        left: 0%;
+    }
+}
+
+@keyframes expandBub1 {
+    0% {
+        transform: scale(.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes expandBub2 {
+    0% {
+        transform: scale(.2);
+        top: 40%;
+        left: 40%;
+    }
+    100% {
+        transform: scale(1);
+        top: 0%;
+        left: 0%;
+    }
+}
+
+@keyframes expandBub3 {
+    0% {
+        transform: scale(.2);
+        top: 1%;
+        left: 60%;
+    }
+    100% {
+        transform: scale(1);
+        top: 0%;
+        left: 0%;
+    }
+}
+@keyframes expandCongrats {
+    0% {
+        transform: scale(.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+.popup-modal {
+    background-color: #a4e7e0;
+    width: 600px;
+    height: 400px;
+    position: absolute;
+    z-index: 350;
+    border-radius: 5%;
+}
+.modal-container {
+    width: 600px;
+    height: 400px;
+    position: absolute;
+}
+#bub1{
+    animation: expandBub1 4s 1;
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    z-index: 400;
+}
+#bub2{
+    animation: expandBub2 3s 1;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    z-index: 399;
+}
+#bub3{
+    animation: expandBub3 3s 1;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    z-index: 398;
+}
+#bub4{
+    animation: expand-bounce 4s 1;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    z-index: 390;
+}
+#bub5{
+    animation: expand-bounce 4s 1;
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    z-index: 390;
+}
+.bub1{
+    display: flex;
+    position: relative;
+    left: 15%;
+    top: 0%;
+    height: 400px;
+    width: 400px;
+}
+.bub2 {
+    display: flex;
+    position: absolute;
+    left: 0%;
+    top: -10%;
+    height: 300px;
+    width: 300px;
+}
+.bub3 {
+    display: flex;
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    height: 200px;
+    width: 200px;
+}
+.bub4 {
+    display: flex;
+    position: absolute;
+    left: 75%;
+    top: 10%;
+    height: 100px;
+    width: 100px;
+}
+.bub5 {
+    display: flex;
+    position: absolute;
+    left: 85%;
+    top: 25%;
+    height: 75px;
+    width: 75px;
+}
+.halfMermaid {
+    display: flex;
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    height: 200px;
+    width: 200px;
+}
+
+#halfMermaid{
+  height: 200px;
+  width: auto;
+  z-index: 401;
+}
+
+@keyframes sword-arm-movement {
+    0%   { transform: rotate(0deg); }
+    50%  { transform: rotate(20deg); }
+    100% { transform: rotate(0deg); }
+}
+
+#sword-pirate-arm{
+    animation: sword-arm-movement 1.3s infinite;
+    position: absolute;
+    top: 23%;
+    left: 34%;
+    width: 100px; 
+    height: 100px;
+    transform-origin: 2% 80%;
+    z-index: 400;
+}
+#sword-pirate-body{
+    position: absolute;
+    height: 150px;
+    width: auto;
+    z-index: 401;
+}
+
+.sword-pirate {
+    display: flex;
+    position: absolute;
+    left: 0%;
+    top: 2%;
+    height: 100px;
+    width: 100px;
+    z-index: 400;
+}
+
+#pirate-ship {
+    animation: pirate-ship-movement 5s 1;
+    animation-fill-mode: forwards;
+    height: 200px;
+    width: auto;
+    z-index: 400;
+}
+
+@keyframes pirate-ship-movement {
+    from{transform: translatex(0%)}
+    to{ transform: translatex(180%)}
+}
+
+
+.pirate-ship{
+    display: flex;
+    position: absolute;
+    left: 5%;
+    top: 55.5%;
+    height: 200px;
+    width: 200px;
+}
+.congrats{
+   animation:expandCongrats 5s 1;
+   position:absolute;
+   top:35%;
+   left: 20%;
+   color: #54067F;
+   font-size: 40px;
+   z-index: 500;
+   font-weight: bold;
+}
+
+#subtext{
+    animation:expandCongrats 5s 1;
+    position:absolute;
+    top:60%;
+    left: 10%;
+    color: #000232;
+    font-size: 20px;
+    z-index: 500;
+    font-weight: bold;
+}
+.starfish {
+    left: 70%;
+    top: 10%;
+    position: absolute;
+    height: 150px;
+    width: 150px;
+    z-index: 410;
+}
+
+#star {
+    animation: spin 4s 1;
+    height: 150px;
+    width: 150px;
+}
+
+.congrats-buttons{
+    top: 80%;
+    align-items: center;
+    width: 100px;
+}
+.congrats-button-box {
+    position: absolute;
+    z-index: 500;
+    top: 60%;
+    left: 25%;
+    height: auto;
+    width: 300px;
+}
+/*Congrats Animation CSS ends here*/
+

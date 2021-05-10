@@ -1,0 +1,95 @@
+#characters-div{
+  width: 250px;
+  z-index: 100;
+  min-height: 500px;
+}
+
+/* .characters {
+  z-index: 100;
+} */
+
+.mermaid-box {
+    height: 300px;
+    animation: float 10s;
+    animation-iteration-count: infinite;
+    z-index: 100;
+    animation-name: mermaidBox;
+    margin-top: 15%;
+    left: 76%;
+}
+
+@keyframes mermaidBox {
+    0%   {top:0px;}
+    50%  {top:20px;}
+    100% {top:0px;}
+}
+
+.mermaid {
+    height: 300px;
+    width: auto;
+    z-index: 100;
+    position: absolute;
+    /* left: 40%; */
+}
+
+.shark{
+  height: auto;
+  width: 250px;
+  z-index: 50;
+  top: 46%;
+}
+
+#shark {
+  filter: brightness(0%) opacity(0%);
+  position: absolute;
+}
+
+#shark-shadow {
+  position: absolute;
+}
+
+#lit-ship {
+  filter: brightness(0%) opacity(0%);
+  position: absolute;
+}
+
+#dark-ship {
+  position: absolute;
+}
+
+.sunken-ship {
+  width: 200px;
+  height: auto;
+  top: 72.5%;
+  z-index: 10;
+  display: flex;
+}
+
+/* .progress-background {
+    margin-top:50%;
+    z-index: 200;
+} */
+
+#mermaid-speech {
+    color: #54067F;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 100px;
+    border-radius: 50%;
+    background:radial-gradient(ellipse, #9edfdb, #8ebddc);
+    display: flex;
+}
+
+#mermaid-speech-box{
+  display: flex;
+  left: 80%;
+  top: -10%;
+  position: relative;
+}
+
+p {
+    display: block;
+}
+

@@ -1,0 +1,82 @@
+<div class="worksheet_header js-worksheetHeader">
+    <instructions instructions-text="$ctrl.questionData.instructions"
+                  instructions-media="$ctrl.questionData.instructions_media"></instructions>
+</div>
+<div class="worksheet worksheet-eventSequencing js-worksheet">
+    <div align="right"></div>
+    <div class="answerBankContainer h-layout js-answerBank">
+        <div class="bank-container answerBank vertical-layout ng-scope">
+            <div ng-repeat="choice in $ctrl.dragAndDrop.answerBank"
+                 drag-and-drop answerbank="$ctrl.dragAndDrop.answerBank" dropped="$ctrl.dragAndDrop.droppedItems"
+                 item="choice" autoregenerate="$ctrl.dragAndDrop.autoRegenerate"
+                 class="draggable answerWrap ui-draggable ui-draggable-handle"
+                 isDraggable="{{$ctrl.getIsDraggable()}}"
+                 ng-class="{'ui-draggable-disabled': !$ctrl.getIsDraggable()}"
+                 data-answerid="{{choice.answer_id}}"
+                 ng-show="!choice.isHidden"
+                 index="{{$index}}"
+            >
+                <div class="answer">
+                    <video-player class="media_video" src="choice.answer_media.videoPath"></video-player>
+                    <div class="media_image" ng-if="choice.answer_media.imagePath"><img draggable="false"
+                                                                                        ng-src="{{choice.answer_media.imagePath}}">
+                    </div>
+                    <div class="media_text" ng-if="choice.answer" ng-bind-html="choice.answer"></div>
+                    <div class="media_audio" ng-if="choice.answer_media.audioPath">
+                        <div class="audioPlayer media_audio">
+                            <audio-player src="choice.answer_media.audioPath"></audio-player>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- .answerBankContainer -->
+    <div class="eventSequencing_chart h-layout js-chart">
+        <table class="targets-table table-standard eventSequencing_targetContainer">
+            <tbody>
+            <tr>
+                <th></th>
+                <th class="eventSequencing_chartTitle">Summary</th>
+            </tr>
+            <tr ng-repeat="choice in $ctrl.dragAndDrop.droppedItems" ng-init="index = $index">
+                <td ng-if="$first" class="eventSequencing_targetTitle">First</td>
+                <td ng-if="$last" class="eventSequencing_targetTitle">Last</td>
+                <td ng-if="!$first && !$last"></td>
+                <td>
+                    <div ng-repeat="answerInTarget in choice.answers">
+                        <div drag-and-drop answerbank="$ctrl.dragAndDrop.answerBank"
+                             dropped="$ctrl.dragAndDrop.droppedItems"
+                             item="choice" autoregenerate="$ctrl.dragAndDrop.autoRegenerate"
+                             class="drop-target answerTarget ui-droppable"
+                             ng-class="{'is-prepopulated': answerInTarget.item.prepopulate,
+                                    'dropped': $ctrl.getIsDropped(answerInTarget.item),
+                                    'correct': $ctrl.getIsCorrect(answerInTarget.item),
+                                    'incorrect': $ctrl.getIsIncorrect(answerInTarget.item)
+                                    }"
+                             data-dragtarget="{{index+1}}"
+                             data-answerid="{{answerInTarget.item.answer_id}}">
+                            <div ng-if="answerInTarget.item.answer" draggable="false" class="answer dropped">
+                                <video-player class="media_video"
+                                              src="answerInTarget.item.answer_media.videoPath"></video-player>
+                                <div class="media_image" ng-if="answerInTarget.item.answer_media.imagePath"><img
+                                            draggable="false"
+                                            ng-src="{{answerInTarget.item.answer_media.imagePath}}">
+                                </div>
+                                <div class="media_text" ng-if="answerInTarget.item.answer"
+                                     ng-bind-html="answerInTarget.item.answer"></div>
+                                <div class="media_audio" ng-if="answerInTarget.item.answer_media.audioPath">
+                                    <audio-player src="answerInTarget.item.answer_media.audioPath"></audio-player>
+                                </div>
+                                <div ng-if="$ctrl.getIsRemovable(answerInTarget.item)"
+                                     ng-click="$ctrl.removeDroppedItem(answerInTarget.item, index)"
+                                     class="closeBut js-clickable"></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div><!-- /.eventSequencing_chart -->
+</div><!-- .worksheet -->
+<robot-completion-popover ng-if="!$ctrl.isPreview" template-ctrl="$ctrl" requires-at-least-one-student-answer="true"></robot-completion-popover>

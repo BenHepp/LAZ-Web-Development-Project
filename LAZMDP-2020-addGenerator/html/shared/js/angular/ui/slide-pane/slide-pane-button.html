@@ -1,0 +1,8 @@
+<span class="slide-pane-button"
+      ng-mousedown="$ctrl.startPress()"
+      ng-mouseup="$ctrl.stopPress()"
+      ng-mouseleave="$ctrl.stopPress()">
+    <ng-transclude>
+        <img ng-src="{{$ctrl.src}}" draggable="false">
+    </ng-transclude>
+</span>

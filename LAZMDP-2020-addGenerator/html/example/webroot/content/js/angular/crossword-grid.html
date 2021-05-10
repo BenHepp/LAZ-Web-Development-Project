@@ -1,0 +1,86 @@
+<div class="container">
+  <div ng-if="!$ctrl.isLoading()">
+    <div class="lds-ripple"><div></div><div></div></div>
+    <p>Loading, please wait</p>
+  </div>
+  
+  <div>
+    <p ng-if="$ctrl.isStepNum($ctrl.ENTERFIRSTWORD)" id="step-two-bubble" class="tutorial-speech-bubble speech-bubble-arrow-down">{{$ctrl.getInstructions()}}</p>
+    <p ng-if="$ctrl.isStepNum($ctrl.SWITCHVERTICAL)" id="step-three-bubble" class="tutorial-speech-bubble speech-bubble-arrow-down">{{$ctrl.getInstructions()}}</p>
+    <p ng-if="$ctrl.isStepNum($ctrl.REMEMBERCLICK)" id="step-four-bubble" class="tutorial-speech-bubble speech-bubble-arrow-down">{{$ctrl.getInstructions()}}</p>
+  </div>
+  <!-- <div>{{$ctrl.crossword}}</div> -->
+  <form>
+    <!-- <table id="crossword" ng-if="$ctrl.isLoading()"> -->
+    <table id="crossword" ng-if="$ctrl.isLoading()">
+      <tr ng-repeat="row in $ctrl.grid">
+        <td ng-repeat="field in row" ng-hide="$ctrl.hideEmptyFields(field.letter)">
+          <input ng-value="$ctrl.userCrosswordState[$parent.$index][$index]" class="cell" type="text" maxlength="1" size="1" id="{{$index + ($parent.$index * $ctrl.grid.length)}}"
+            ng-model="$ctrl.userCrosswordState[$parent.$index][$index]" ng-focus="$ctrl.onFocus($event)" 
+            ng-class="{incorrectLetter: $ctrl.isWrongLetterOfCompletedWord($parent.$index, $index),
+                       completedWord: $ctrl.isMemberOfSolvedWord($parent.$index, $index),
+                       clickedWord: $ctrl.isMemberOfClickedWord($parent.$index, $index),
+                       hintedWord: $ctrl.isMemberOfHintedWord($parent.$index, $index),
+                      'highlight-cell-with-shadow': $ctrl.isTutorialCellHighlightedShadow($parent.$index, $index),
+                       highlight: $ctrl.isTutorialCellHighlighted($parent.$index, $index),
+                      'disable-when-highlighted': $ctrl.isTutorial(),
+                      'specialCharacter': $ctrl.isSpecialCharacter($parent.$index, $index)}"
+            ng-change="$ctrl.onChange($parent.$index, $index)"
+            ng-mousedown="$ctrl.highlightCorrespondingClickedWord($parent.$index, $index, $event)"
+            ng-mouseup="$ctrl.selectInput($event)"
+            ng-keydown="$ctrl.arrowKeyPressed($event)" 
+            ng-keyup="$ctrl.selectInput($event)" ng-trim="false"
+            ng-readonly="$ctrl.isMemberOfSolvedWord($parent.$index, $index) || $ctrl.isSpecialCharacter($parent.$index, $index)" />
+        </td>
+      </tr>
+    </table>
+  </form>
+
+<div ng-if="$ctrl.isShowHelpModal()" class="modalRow help-modal highlight-with-shadow">
+<!-- <embed src="shared/sounds/mermaidTutorial.mp3"></embed> -->
+  <div class="modalColumn left">
+      <img id="help-bubble" src="shared/images/mdp/help_bubble.svg">
+      <img id="modal-mermaid" src="shared/images/mdp/half_mermaid.png">
+  </div>
+  <div class="modalColumn right">
+      <p>Hi, my friend! I see your ship in the distance! </p>
+      <p>The sun is setting fast, and it’s getting dark here! 
+        Can you help my starfish friends to light up the water so I can see you? 
+        All you need to do is solve this puzzle.
+      </p>
+      <a ng-click="$ctrl.clickTutorial()">
+          <img class="setting-button" src="shared/images/mdp/howtoplay_button.svg">
+      </a>
+      <a ng-click="$ctrl.clickPlayGame()">
+        <img class="setting-button" src="shared/images/mdp/playgame_button.svg">
+    </a>
+  </div>
+</div>
+
+<div class="tutorial-buttons">
+  <div ng-if="$ctrl.isTutorial() && !$ctrl.isStepNum($ctrl.TUTORIALMODAL) && !$ctrl.isStepNum($ctrl.DEFINITIONBOX)">
+    <a ng-click="$ctrl.clickBack()">
+        <img class="back-button" src="shared/images/mdp/back_button.svg">
+    </a>
+  </div>
+
+  <div ng-if="$ctrl.isTutorial() && !$ctrl.isStepNum($ctrl.TUTORIALBUTTON) && !$ctrl.isStepNum($ctrl.TUTORIALMODAL)">
+    <a ng-click="$ctrl.clickNextStep()">
+        <img class="next-button" src="shared/images/mdp/next_button.svg">
+    </a>
+  </div>
+
+  <div ng-if="$ctrl.isTutorial()  && !$ctrl.isStepNum($ctrl.TUTORIALBUTTON) && !$ctrl.isStepNum($ctrl.TUTORIALMODAL)">
+      <a ng-click="$ctrl.clickSkip()">
+          <img class="skip-button" src="shared/images/mdp/skip_button.svg">
+      </a>
+  </div>
+
+   <div ng-if="$ctrl.isTutorial() && $ctrl.isStepNum($ctrl.TUTORIALBUTTON) && !$ctrl.isStepNum($ctrl.TUTORIALMODAL)">
+      <a ng-click="$ctrl.clickNextStep()">
+          <img class="next-button" src="shared/images/mdp/playgame_button.svg">
+      </a>
+  </div>
+
+  
+</div>

@@ -1,0 +1,5 @@
+<div class="listItem" ng-repeat="student in $ctrl.students track by student.student_id">
+    <student-checkbox student="student"></student-checkbox>
+    <br />
+    <span class="listStudents_level" ng-if="student.level">Level {{ student.level }}</span>
+</div>

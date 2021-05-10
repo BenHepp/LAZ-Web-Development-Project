@@ -1,0 +1,38 @@
+<div class="top-bar" ng-class="{'disable-when-highlighted': $ctrl.isTutorial()}">
+  <div id="starry-sky-tint" ng-style="{'opacity': $ctrl.getOpacity()}">
+  </div>
+  <div class="title2">
+    <p id="title">
+      Magic Water Crossword
+    </p>
+  </div>
+
+  <div class="meter2">
+    <div class="meter orange">
+      <img id="boat" class="sailboat" ng-style="{ 'left': $ctrl.getProgress() - 11 + '%' }" src="shared/images/mdp/sailboat.svg">
+      <span id="progress-bar" ng-style="{ 'width': $ctrl.getProgress() + '%' }"></span>
+    </div>
+  </div>
+  
+  <div class="buttons-bubble-wrapper">
+    <div class="toolbar-buttons">
+      <div class="setting-button-box" ng-class="{'highlight-with-shadow': $ctrl.isStepNum($ctrl.TUTORIALBUTTON)}">
+        <a ng-click="$ctrl.clickHint()">
+          <img class="setting-button" src="shared/images/mdp/hint_button.png" aria-hidden="true">
+        </a>
+        <!-- <div class="toolbar-button-text remaining-hints">
+          Hints: {{$ctrl.getRemainingHints()}} / {{$ctrl.getTotalHints()}}
+        </div> -->
+      </div>
+    
+      <div class="setting-button-box">
+          <a ng-click="$ctrl.clickTutorial()">
+            <img class="setting-button" src="shared/images/mdp/tutorial_button.png">
+          </a>
+        <!-- <p class="toolbar-button-text"> Tutorial</p> -->
+      </div>
+    </div>
+    <p ng-if="$ctrl.isStepNum($ctrl.TUTORIALBUTTON)" id="step-five-bubble" class="tutorial-speech-bubble speech-bubble-arrow-up">{{$ctrl.getInstructions()}}</p>
+  </div>
+
+</div>

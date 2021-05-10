@@ -1,0 +1,20 @@
+<?php
+use LAZ\objects\library\PHPUtil;
+include $_ENV['ROOT_WWW_PATH']."/html/example/webroot/content/js/angular/include.html";
+?>
+
+<h1>Example Student Roster</h1>
+
+<example-student-list>
+</example-student-list>
+
+<script>
+    (function () {
+        var students = <?=PHPUtil::json_encode($students)?>;
+        angular.module('example')
+            .config(['exampleStudentsProvider',
+                function (exampleStudentsProvider) {
+                    exampleStudentsProvider.setStudents(students);
+                }]);
+    })();
+</script>

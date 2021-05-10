@@ -1,0 +1,24 @@
+<ul ng-if="$ctrl.showPager()" class="paging">
+    <li class="paging_prev" ng-class="{'is-disabled': $ctrl.isCurrentPage(1)}">
+        <a href="javascript:void(0)" ng-click="$ctrl.goRelativePages(-1)">Previous</a>
+    </li>
+    <li class="paging_first paging_number" ng-class="{'is-active': $ctrl.isCurrentPage(1)}">
+        <a href="javascript:void(0)" ng-click="$ctrl.gotoPage(1)">1</a>
+    </li>
+    <li class="paging_ellipsis" ng-if="$ctrl.showLeftEllipsis()">
+        <a href="javascript:void(0)" ng-click="$ctrl.goRelativeBlocks(-1)">...</a>
+    </li>
+    <li class="paging_number" ng-repeat="page in $ctrl.navigablePages"
+            ng-class="{'is-active': $ctrl.isCurrentPage(page)}">
+        <a href="javascript:void(0)" ng-click="$ctrl.gotoPage(page)">{{page}}</a>
+    </li>
+    <li class="paging_ellipsis" ng-if="$ctrl.showRightEllipsis()">
+        <a href="javascript:void(0)" ng-click="$ctrl.goRelativeBlocks(1)">...</a>
+    </li>
+    <li class="paging_last paging_number" ng-class="{'is-active': $ctrl.isCurrentPage($ctrl.numPages)}">
+        <a href="javascript:void(0)" ng-click="$ctrl.gotoPage($ctrl.numPages)">{{$ctrl.numPages}}</a>
+    </li>
+    <li class="paging_next" ng-class="{'is-disabled': $ctrl.isCurrentPage($ctrl.numPages)}">
+        <a href="javascript:void(0)" ng-click="$ctrl.goRelativePages(1)">Next </a>
+    </li>
+</ul>

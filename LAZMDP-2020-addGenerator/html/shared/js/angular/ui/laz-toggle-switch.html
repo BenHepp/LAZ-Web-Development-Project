@@ -1,0 +1,27 @@
+<label for="{{::$ctrl.checkboxId}}" ng-click="$ctrl.click($event)">
+    <span
+        class="switch"
+        ng-class="{
+            'switch-on': $ctrl.checked,
+            'is-disabled': $ctrl.disabled
+        }"
+    >
+        <input
+            tabindex="0"
+            role="checkbox"
+            aria-checked="{{$ctrl.checked}}"
+            id="{{::$ctrl.checkboxId}}"
+            type="checkbox"
+            ng-model="$ctrl.checked"
+            class="hiddenInput"
+            ng-class="$ctrl.inputclass"
+            ng-disabled="$ctrl.disabled"
+        >
+        <span class="switch_bar"></span>
+        {{$ctrl.checked ? 'On' : 'Off'}}
+        <ng-transclude></ng-transclude>
+    </span>
+    <!--         visually hidden label for use by screenreader software -->
+    <span class="visuallyHidden">{{$ctrl.srlabel}}</span>
+
+</label>

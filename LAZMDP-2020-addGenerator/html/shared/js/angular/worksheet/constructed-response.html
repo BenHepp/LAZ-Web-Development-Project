@@ -1,0 +1,42 @@
+<div class="worksheet_header">
+    <instructions instructions-text="$ctrl.questionData.instructions" instructions-media="$ctrl.questionData.instructions_media"></instructions>
+</div>
+<div class="worksheet worksheet-constructedResponse js-worksheet">
+    <div class="chartContainer chartContainer-constructedResponse h-layout">
+        <div class="constructedResponse_chart js-targetContainer js-chart">
+            <div class="passageContainer">
+                <div class="constructedResponse_passage" ng-if="$ctrl.questionData.passage.text">
+                    <span class="constructedResponse_passageTitle" ng-if="$ctrl.questionData.passage.title" ng-bind-html="$ctrl.questionData.passage.title"></span>
+                    <span class="passage-text" ng-if="$ctrl.questionData.passage.text" ng-bind-html="$ctrl.questionData.passage.text"></span>
+                </div>
+            </div>
+            <textarea name="studentAnswer-1" ng-maxlength="{{$ctrl.MAX_LENGTH}}" class="constructedResponse_studentTextarea js-constructedResponseTextarea"
+                      ng-model="$ctrl.studentConstructedResponse"
+                      ng-change="$ctrl.textAreaIsEmpty()"
+                      ng-disabled="$ctrl.getIsDisabled()">
+            </textarea>
+            <ul class="constructedResponse_vocabList js-vocabulary-list"
+                style="display: flex;
+                    list-style: none;
+                    margin: 1rem 0;
+                    padding: 0;
+                    flex-wrap: wrap;"
+            >
+                <li class="constructedResponse_vocabListItem"
+                    ng-repeat="vocabulary in $ctrl.questionData.vocabulary track by $index"
+                    index="{{$index}}"
+                    style="font-weight: bold; margin: .5rem 1.5rem .5rem 0;"
+                >
+                    <div class="media_audio"
+                        ng-if="vocabulary.vocabulary_media.audioPath"
+                        style="float: left; margin-right: 6px;"
+                    >
+                        <audio-player src="vocabulary.vocabulary_media.audioPath"></audio-player>
+                    </div>
+                    <div class="media_text">{{vocabulary.word_name}}</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<robot-completion-popover ng-if="!$ctrl.isPreview" template-ctrl="$ctrl" requires-at-least-one-student-answer="true"></robot-completion-popover>

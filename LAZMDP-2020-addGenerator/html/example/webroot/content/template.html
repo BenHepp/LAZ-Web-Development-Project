@@ -1,0 +1,50 @@
+<?php
+use LAZ\objects\library\PHPUtil;
+?>
+<!doctype html>
+<html ng-app="crossword">
+<head>
+    <title>Magic Water Crossword</title>
+    <link rel="stylesheet" href="/shared/css/styles1.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/shared/css/styles2.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/shared/js/angular/popout/css/popover.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/shared/css/mdpPopover.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/shared/css/crossword.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/shared/css/definitionBox.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/shared/css/crosswordGrid.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/shared/css/gameScreen.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/shared/css/progressBar.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/shared/css/toolbar.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/shared/css/characters.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/shared/css/star.css" type="text/css" media="all">
+
+    <script type="text/javascript" src="/shared/js/jquery-1.9.1.min<?= $_ENV['BUILDTAG'] ?>.js"></script>
+    <script type="text/javascript" src="/shared/js/underscore-1.5.2<?= $_ENV['BUILDTAG'] ?>.js"></script>
+    <script type="text/javascript" src="/shared/js/angular-1.6.0/angular.min<?= $_ENV['BUILDTAG'] ?>.js"></script>
+    <script type="text/javascript"
+        src="/shared/js/angular-1.6.0/angular-animate.min<?= $_ENV['BUILDTAG'] ?>.js"></script>
+    <script type="text/javascript" src="/shared/js/angular-1.6.0/angular-aria.min<?= $_ENV['BUILDTAG'] ?>.js"></script>
+    <script type="text/javascript"
+        src="/shared/js/angular-1.6.0/angular-messages.min<?= $_ENV['BUILDTAG'] ?>.js"></script>
+    <script type="text/javascript"
+        src="/shared/js/angular-1.6.0/angular-resource.min<?= $_ENV['BUILDTAG'] ?>.js"></script>
+    <script type="text/javascript" src="/shared/js/angular/angular-modal-service<?= $_ENV['BUILDTAG'] ?>.js"></script>
+    <script type="text/javascript" src="/shared/js/angular/shared.module<?= $_ENV['BUILDTAG'] ?>.js"></script>
+    <? require_once $_ENV['ROOT_WWW_PATH']."/html/shared/js/angular/core/include.html"; ?>
+    <? require_once $_ENV['ROOT_WWW_PATH']."/html/shared/js/angular/util/include.html"; ?>
+    <? require_once $_ENV['ROOT_WWW_PATH']."/html/shared/js/angular/ui/include.html"; ?>
+    <? include $_ENV['ROOT_WWW_PATH']."/html/example/webroot/content/js/angular/include.html"; ?>
+    <script>
+        (function () {
+            angular.module('shared')
+                .constant('BuildTag', <?= PHPUtil :: json_encode($_ENV['BUILDTAG']) ?>);
+        })();
+    </script>
+</head>
+
+<body>
+    <message-reporter></message-reporter>
+    <? $this->display($content); ?>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+(function () {
+    'use strict';
+
+    angular.module('shared.worksheet')
+
+        .component(
+            'eventSequence', {
+            templateUrl: '/shared/js/angular/worksheet/event-sequence.html',
+            controller: 'EventSequenceController',
+            bindings: {
+                questionData: '<',
+                studentAnswers: '<',
+                isLastQuestion: '<'
+            }
+        })
+
+        .controller('EventSequenceController', ['worksheetService', '$scope', '$sce', 'worksheetUtils', '$element',
+            function (worksheetService, $scope, $sce, worksheetUtils) {
+                var ctrl = this;
+                ctrl.dragAndDrop = {};
+                ctrl.dragAndDrop.droppedItems = [];
+                ctrl.correctAnswers = [];
+                ctrl.isPerfectScore = false;
+                ctrl.isAttemptTwo = false;
+
+                ctrl.$onInit = function () {
+                    ctrl.choicesWithDragTargets = _.filter(ctrl.questionData.choices, function (choice) {
+                        return worksheetUtils.isValidDragTarget(choice);
+                    });
+                    ctrl.skipAutoGrade = ctrl.questionData.skipAutoGrade;
+                    ctrl.dragAndDrop.answerBank = ctrl.questionData.choices;
+                    ctrl.dragAndDrop.droppedItems = ctrl.choicesWithDragTargets.map(function (c) {
+                        return {'answers': [{'item': undefined}]};
+                    });
+                    ctrl.establishPrepopulatedItems();
+
+                    ctrl.readOnly = worksheetService.getReadOnly();
+                    ctrl.isPreview = worksheetService.getIsPreview();
+                    if (ctrl.readOnly) {
+                        ctrl.correctAnswers = ctrl.populateCorrectAnswers();
+                        ctrl.dragAndDrop.droppedItems = ctrl.correctAnswers;
+                    }
+
+                    ctrl.dragAndDrop.autoRegenerate = ctrl.questionData.autoRegenerate;
+
+                    if (ctrl.studentAnswers) {
+                        ctrl.drawStudentAnswers();
+                    }
+                };
+
+                ctrl.establishPrepopulatedItems = function () {
+                    worksheetUtils.establishPrepopulatedItems(ctrl.dragAndDrop.answerBank, ctrl.dragAndDrop.droppedItems)
+                };
+
+                ctrl.populateCorrectAnswers = function () {
+                    return worksheetUtils.populateCorrectAnswers(ctrl.questionData.choices, ctrl.correctAnswers, ctrl.dragAndDrop.answerBank, ctrl.dragAndDrop.autoRegenerate);
+                };
+
+                ctrl.removeDroppedItem = function (choiceToRemove, indexOfDropped) {
+                    worksheetUtils.removeDroppedItem(ctrl.dragAndDrop.answerBank, ctrl.dragAndDrop.droppedItems, choiceToRemove, indexOfDropped);
+                };
+
+                ctrl.drawStudentAnswers = function () {
+                    var attemptNumber = ctrl.studentAnswers.attemptNumber;
+                    ctrl.isPerfectScore = ctrl.studentAnswers.isPerfectScore;
+                    ctrl.isAttemptTwo = attemptNumber == 2 ? true : false;
+                    var correctIds = ctrl.studentAnswers.ids;
+                    var keepIncorrectInTarget = false;
+                    worksheetUtils.drawStudentAnswersForDragTargetQuestion(ctrl.studentAnswers, ctrl.dragAndDrop.answerBank, ctrl.dragAndDrop.droppedItems,
+                        ctrl.dragAndDrop.autoRegenerate, ctrl.isAttemptTwo, correctIds, keepIncorrectInTarget, ctrl.skipAutoGrade);
+                };
+
+                ctrl.gradeWorksheetQuestion = function () {
+                    var dragTargets = angular.element('.drop-target:visible');
+                    var chart = angular.element('.js-chart:visible')[0];
+
+                    if (!ctrl.studentAnswers) {
+                        ctrl.studentAnswers = {};
+                        ctrl.studentAnswers['attemptNumber'] = 1;
+                    } else {
+                        ctrl.studentAnswers['attemptNumber'] = 2;
+                    }
+
+                    ctrl.studentAnswers['attempt'] = {};
+                    ctrl.studentAnswers['attempt'][ctrl.studentAnswers['attemptNumber']] = {};
+                    var answersInDragTarget = {};
+
+                    _.each(dragTargets, function (dragTarget) {
+                        var answers = [];
+                        var dragTargetNumber = dragTarget.getAttribute('data-drag_target');
+                        answersInDragTarget[dragTargetNumber] = {};
+
+                        // Prepopulated answers do not count toward score
+                        if (!angular.element(dragTarget).hasClass('is-prepopulated')) {
+                            answers.push({
+                                'answer_id': dragTarget.getAttribute('data-answerid'),
+                                'drag_target': dragTargetNumber,
+                                'prepopulate': angular.element(dragTarget).hasClass('is-prepopulated')
+                            });
+                        }
+                        answersInDragTarget[dragTargetNumber] = answers;
+                    });
+
+                    ctrl.studentAnswers['attempt'][ctrl.studentAnswers['attemptNumber']]['dragTarget'] = answersInDragTarget;
+
+                    worksheetService.evaluateStudentAnswers(ctrl.studentAnswers, ctrl.questionData.index)
+                        .then(function (data) {
+                            ctrl.studentAnswers.ids = data.ids;
+                            ctrl.studentAnswers.isPerfectScore = (data.possiblePoints >= 0 && data.correctPoints == data.possiblePoints);
+                            if (ctrl.studentAnswers.isPerfectScore) {
+                                worksheetService.setBookmarkedQuestionIndex(worksheetService.getQuestionIndex() + 1);
+                            }
+                            ctrl.drawStudentAnswers(ctrl.studentAnswers, ctrl.dragAndDrop.answerBank, ctrl.dragAndDrop.droppedItems,
+                                ctrl.dragAndDrop.autoRegenerate, ctrl.studentAnswers.isPerfectScore,
+                                ctrl.studentAnswers['attemptNumber'], ctrl.studentAnswers.ids);
+                        });
+                };
+            }]);
+})();

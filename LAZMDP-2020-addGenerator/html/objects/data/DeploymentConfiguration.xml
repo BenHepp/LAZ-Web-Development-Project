@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deployment_configuration db_server="localhost:3306" instance="local" path="C:\kepler\workspace\www\html\objects/data/DeploymentConfiguration.xml" generated="2018-10-17 22:55:19 EDT">
+  <shard_configurations>
+    <shard_configuration>
+      <id>1</id>
+      <is_default>y</is_default>
+      <shards>
+        <shard>
+          <name>data_copy</name>
+          <replicants>
+            <replicant>
+              <type>master</type>
+              <host>localhost</host>
+              <port>3306</port>
+            </replicant>
+          </replicants>
+        </shard>
+      </shards>
+    </shard_configuration>
+  </shard_configurations>
+  <databases>
+    <database>
+      <name>example_students</name>
+      <replicants>
+        <replicant>
+          <type>master</type>
+          <host>localhost</host>
+          <port>3306</port>
+        </replicant>
+      </replicants>
+    </database>
+  </databases>
+</deployment_configuration>

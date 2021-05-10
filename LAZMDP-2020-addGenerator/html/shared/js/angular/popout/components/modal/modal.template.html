@@ -1,0 +1,9 @@
+<popout service-ctrl="$ctrl.serviceCtrl">
+    <popout-target>
+        <ng-transclude></ng-transclude>
+    </popout-target>
+    <popout-content parent-bindings="$ctrl.parentBindings" drop-shadow override-class="modalWindow" use-template="$ctrl.modalContent">
+        <iframe ng-if="$ctrl.iframeUrl && !$ctrl.modalContent" src="{{$ctrl.iframeUrl}}" onload="this.style.height=this.contentDocument.body.scrollHeight +'px';this.style.width=this.contentDocument.body.scrollWidth +'px';"></iframe>
+        <div id="idcontent">{{$ctrl.getIdContent()}}</div>
+    </popout-content>
+</popout>

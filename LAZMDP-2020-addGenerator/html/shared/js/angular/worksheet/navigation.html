@@ -1,0 +1,9 @@
+<ul class="nav">
+<li ng-if="$ctrl.numQuestions.length > 1" ng-repeat="questionIndex in $ctrl.numQuestions">
+    <a ng-click="$ctrl.onQuestionChange(questionIndex)"
+        ng-class="{'active': $ctrl.currentQuestionIndex() == questionIndex,
+                      'disabled': !$ctrl.isPreview && $ctrl.bookmarkedQuestionIndex() < questionIndex}"
+        class="js-clickable"
+    ></a>
+</li>
+</ul>

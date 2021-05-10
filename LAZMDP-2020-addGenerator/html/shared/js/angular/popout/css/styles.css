@@ -1,0 +1,9 @@
+.body-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.7);
+    height: 100%;
+    width: 100%;
+    z-index: 5000; /* same as message box and modal */
+}

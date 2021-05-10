@@ -1,0 +1,42 @@
+<div class="delivery">
+    <div class="resource_icon">
+        <div class="activityIcons_icon" ng-if="::($ctrl.delivery.name == 'listen' || $ctrl.delivery.name == 'read')"
+            ng-class="::{'is-completed'  : $ctrl.delivery.status.isCompleted,
+                         'is-bookmarked' : $ctrl.delivery.status.isBookmarked,
+                         'is-disabled'   : $ctrl.delivery.status.isDisabled}">
+            <a ng-href="{{::$ctrl.delivery.getActivityUrl()}}">
+                <span class="visuallyHidden">{{::$ctrl.delivery.name == 'listen' ? 'Listen' : 'Read'}}</span>
+                <span class="icon {{::$ctrl.delivery.name == 'listen' ? 'icon-listenC' : 'icon-readC'}}" aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="activityIcons_icon" ng-if="$ctrl.delivery.name == 'quiz'"
+            ng-class="::{'is-bookmarked'    : $ctrl.delivery.status.isBookmarked,
+                         'is-passed'        : $ctrl.delivery.status.isPassed,
+                         'is-passed-perfect': $ctrl.delivery.status.isPassedPerfect,
+                         'is-disabled'      : $ctrl.delivery.status.isDisabled}">
+            <a ng-href="{{::$ctrl.delivery.getActivityUrl()}}">
+                <span class="visuallyHidden">Quiz</span>
+                <span class="icon icon-quizC" aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="activityIcons_icon" ng-if="$ctrl.delivery.name == 'worksheet'"
+             ng-class="::{'is-bookmarked'    : $ctrl.delivery.status.isBookmarked,
+                         'is-passed'         : $ctrl.delivery.status.isPassed,
+                         'is-passed-perfect' : $ctrl.delivery.status.isPassedPerfect,
+                         'is-disabled'       : $ctrl.delivery.status.isDisabled}">
+            <a ng-href="{{::$ctrl.delivery.getActivityUrl()}}">
+                <span class="visuallyHidden">Worksheet</span>
+                <span class="icon icon-interactivityC" aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="activityIcons_icon" ng-if="$ctrl.delivery.name == 'word_game'"
+            ng-class="::{'is-bookmarked'    : $ctrl.delivery.status.isBookmarked,
+                         'is-completed'     : $ctrl.delivery.status.isCompleted,
+                         'is-disabled'      : $ctrl.delivery.status.isDisabled}">
+            <a ng-href="{{::$ctrl.delivery.getActivityUrl()}}">
+                <span class="visuallyHidden">Word Game</span>
+                <span class="icon icon-quizC" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</div>

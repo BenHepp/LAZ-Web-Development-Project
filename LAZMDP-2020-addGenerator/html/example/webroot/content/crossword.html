@@ -1,0 +1,22 @@
+<?php
+use LAZ\objects\library\PHPUtil;
+include $_ENV['ROOT_WWW_PATH']."/html/example/webroot/content/js/angular/include.html";
+?>
+
+<toolbar></toolbar>
+<game-screen id="game-screen"> </game-screen>
+<div id="night-waters"> </div>
+<div id="day-waters" ng-style="{'opacity': $ctrl.getOpacity()}"> </div>
+
+<script>
+    (function () {
+        var wordData = <?= PHPUtil :: json_encode($wordLocations) ?>;
+        var crossword = <?= PHPUtil :: json_encode($crossword) ?>;
+        angular.module('crossword')
+            .config(['crosswordStateProvider',
+                function (crosswordStateProvider) {
+                    crosswordStateProvider.setWordData(wordData);
+                    crosswordStateProvider.setCrossword(crossword);
+                }]);
+    })();
+</script>

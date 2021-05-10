@@ -1,0 +1,3 @@
+{{$ctrl.getDisplayText()}}
+<br>
+<a href ng-if="$ctrl.showMoreLessToggle();" ng-click="$ctrl.toggleShow(); $event.stopPropagation();">{{$ctrl.showMore ? "less" : "more"}}</a>

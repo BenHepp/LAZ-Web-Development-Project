@@ -1,0 +1,8 @@
+<div class="avatar-portrait">
+    <avatar-viewer ng-if="$ctrl.isAvatarIncentiveEnabled()"
+                   avatar="$ctrl.avatar"
+                   max-width="$ctrl.maxWidth"
+                   max-height="$ctrl.maxHeight">
+    </avatar-viewer>
+    <img ng-if="!$ctrl.isAvatarIncentiveEnabled()" ng-src="{{$ctrl.defaultAvatarImg()}}" class="avatar-homeDefault">
+</div>

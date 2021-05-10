@@ -1,0 +1,45 @@
+<?php
+
+use LAZ\objects\base\MessageController;
+use LAZ\objects\tools\DebugHandler;
+use LAZ\objects\tools\WarningHandler;
+use LAZ\objects\tools\RedirectingErrorHandler;
+use LAZ\objects\tools\Content;
+use LAZ\example\modules\ExampleFrontController;
+
+$_ENV['ROOT_WWW_PATH'] = "/var/www";
+require_once $_ENV['ROOT_WWW_PATH']."/html/objects/config/config.inc.php";
+require_once $_ENV['ROOT_WWW_PATH'] . "/html/example/src/autoload.php";
+
+session_start();
+ob_start();
+
+define("DOC_ROOT", dirname(__FILE__) . "/");
+define("CONTENT_DIR", DOC_ROOT . 'content/');
+define('CONTENT_URL', '/content/');
+define('SHARED_CONTENT', $_ENV['ROOT_WWW_PATH'] . '/html/shared/content/');
+define("TEMPLATE", "template");
+
+$output = new MessageController();
+
+$debug = new DebugHandler("QUIET");
+$output->setHandler('debug', $debug);
+
+$warning = new WarningHandler();
+$output->setHandler('warning', $warning);
+
+$error = new RedirectingErrorHandler();
+$output->setHandler('error', $error);
+
+global $content;
+$content = new Content(null, $output);
+
+try {
+    new ExampleFrontController();
+} catch (Exception $exception) {
+    $content->setContentLocation(SHARED_CONTENT);
+    $content->display("dberror");
+    exit;
+}
+
+ob_end_flush();

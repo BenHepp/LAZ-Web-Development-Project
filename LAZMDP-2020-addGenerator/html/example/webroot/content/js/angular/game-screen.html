@@ -1,0 +1,48 @@
+<crossword-grid></crossword-grid>
+<definition-box></definition-box>
+<characters></characters>
+
+<div class="popup-modal" ng-if="$ctrl.isShowEnding()">
+<!-- <div class="popup-modal" ng-if="true"> -->
+    <div class="modal-container">
+        <div class="congrats">
+            <p> Congratulations! </p>
+            <p id="subtext"> You finished all the words! </p>
+        </div>
+        <div class="bub1">
+            <img id="bub1" src="shared/images/mdp/bubble.png" alt="Bubble">
+        </div>
+        <div class="bub2">
+            <img id="bub2" src="shared/images/mdp/bubble.png" alt="Bubble">
+        </div>
+        <div class="bub3">
+            <img id="bub3" src="shared/images/mdp/bubble.png" alt="Bubble">
+        </div>
+        <div class="bub4">
+            <img id="bub4" src="shared/images/mdp/bubble.png" alt="Bubble">
+        </div>
+        <div class="bub5">
+            <img id="bub5" src="shared/images/mdp/bubble.png" alt="Bubble">
+        </div>
+        <div class="halfMermaid">
+            <img id="halfMermaid" src="shared/images/mdp/half_mermaid.png" alt="Mermaid">
+        </div>
+        <div class="sword-pirate">
+            <img id="sword-pirate-arm" src="shared/images/mdp/sword_pirate_arm.svg" alt="pirate arm">
+            <img id="sword-pirate-body" src="shared/images/mdp/sword_pirate_body.svg" alt="pirate">
+        </div>
+        <div class="starfish">
+            <img id="star" src="shared/images/mdp/starguy.svg" alt="Starfish">
+        </div>
+        <div class="pirate-ship">
+            <img id="pirate-ship" src="shared/images/mdp/pirate_ship.svg" alt="pirate ship">
+        </div>
+        <div class="congrats-button-box">
+            <a ng-click="$ctrl.clickPlayAgain()">
+            <img id="play-again" class="setting-button congrats-buttons" src="shared/images/mdp/play_again_purple.svg" alt="Play Again">
+            </a>
+            <img id="leave" class="setting-button congrats-buttons" src="shared/images/mdp/leave_purple.svg" alt="Leave">
+        </div>
+    </div>
+</div>
+</div>

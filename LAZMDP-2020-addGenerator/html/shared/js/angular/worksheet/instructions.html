@@ -1,0 +1,47 @@
+<div ng-if="($ctrl.instructionsText || $ctrl.instructionsMedia.audioPath
+                || $ctrl.instructionsMedia.imagePath || $ctrl.instructionsMedia.videoPath)"
+     class="instructionsContainer js-instructions">
+    <div class="instructions h-layout">
+
+        <span class="media_textContainer">
+
+            <!-- audio -->
+            <span class="js-activity-instructions-audio media_audio" ng-if="$ctrl.instructionsMedia.audioPath">
+                <audio-player src="$ctrl.instructionsMedia.audioPath"></audio-player>
+            </span>
+
+            <!-- text -->
+            <span class="js-activity-instructions media_text" ng-if="$ctrl.instructionsText"
+                ng-bind-html="$ctrl.instructionsText"></span>
+
+        </span>
+
+        <!-- video -->
+        <span class="js-activity-instructions-video media_video" ng-if="$ctrl.instructionsMedia.videoPath">
+            <video-player src="$ctrl.instructionsMedia.videoPath"></video-player>
+        </span>
+
+        <!-- expandable image -->
+        <popover on-inited="$ctrl.setPopover(ctrl)">
+            <popover-target>
+                <a class="js-clickable media_image" ng-if="$ctrl.instructionsMedia.imagePath" ng-click="$ctrl.openPopover()">
+                    <img draggable="false" class="js-instructions-image js-clickable" ng-src="{{$ctrl.instructionsMedia.imagePath}}">
+                </a>
+            </popover-target>
+            <popover-content>
+                <div class="enlargedImg js-clickable" ng-click="$ctrl.clickClosePopover($event)">
+                    <div class="enlargedImg_header">
+                        <button href="#" class="btn btn-close closeBtn js-clickable" ng-click="$ctrl.closePopover()">
+                            <span class="icon icon-chevron-left icon-left js-clickable"></span>
+                            Back
+                        </button>
+                    </div>
+                    <div class="enlargedImg_content js-content">
+                        <img draggable="false" class="js-content" ng-src="{{$ctrl.instructionsMedia.imagePath}}">
+                    </div>
+                </div>
+            </popover-content>
+        </popover>
+
+    </div>
+</div>

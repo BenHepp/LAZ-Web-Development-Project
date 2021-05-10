@@ -1,0 +1,72 @@
+<div class="body-overlay" ng-click="$ctrl.close()"></div>
+<form name="assign-targeted-resource" class="modalWindow" ng-submit="$ctrl.submit()" style="height: 95vh;">
+    <span class=" closeBtn" title="close" ng-click="$ctrl.close()">&times;</span>
+
+    <div class="modalWindow_header">
+        {{$ctrl.title}}
+    </div>
+
+    <div class="modalWindow_body">
+
+        <div ng-if="$ctrl.showActivities" class="step">
+            <span class="stepNumber">{{$ctrl.activitiesStep}}</span>
+            <h3 class="stepHeading"><span ng-if="!$ctrl.areActivitiesDisabled()">Select </span>Activities</h3>
+            <div class="assignActivities">
+                <laz-checkbox ng-repeat="activity in $ctrl.activities" ng-model="activity.selected" ng-disabled="$ctrl.areActivitiesDisabled()">
+                    {{activity.display_name}}
+                    <span class="icon" ng-class="activity.iconClass"></span>
+                </laz-checkbox>
+
+                <feature-check code="CONSTRUCTED_RESPONSE_TOGGLE">
+                    <enabled>
+                    <span ng-if="$ctrl.quizSelected()">
+                            <laz-checkbox ng-model="$ctrl.constructedResponseEnabled" class="notBold">Include constructed response question in quiz</laz-checkbox>
+                    </span>
+                    </enabled>
+                </feature-check>
+            </div>
+            <hr class="hr-dashed marginT2 marginB3">
+        </div>
+        <div ng-if="$ctrl.showResources" class="step">
+            <span class="stepNumber">{{$ctrl.resourcesStep}}</span>
+            <h3 class="stepHeading">Choose Resources</h3>
+            <div class="assignResources">
+                <div ng-repeat="resource in $ctrl.resources">
+                    <laz-checkbox ng-model="resource.selected">
+                        {{resource.title}}
+                        <span class="subtle sm">{{resource.resource_info}}</span>
+                    </laz-checkbox>
+                </div>
+            </div>
+            <hr class="hr-dashed marginT2 marginB3" />
+        </div>
+
+        <div ng-switch="$ctrl.switchAnyStudents()">
+            <div ng-switch-when="pending" class="body-overlay body-overlay-white">
+                <div class="loading_spinner loading_spinner-sm" style="top: 30%;"></div>
+            </div>
+            <div class="step" ng-switch-when="some">
+                <span class="stepNumber">{{$ctrl.studentsStep}}</span>
+                <h3 class="stepHeading">Choose Students</h3>
+                <select-students-by-group></select-students-by-group>
+                <br>
+                <student-list-with-levels></student-list-with-levels>
+            </div>
+            <div ng-switch-when="none" class="alert noStudents alert-warning marginB">
+                <span class="icon icon-alert2"></span> You have no students. <a ng-href="{{$ctrl.kidsRosterUrl}}">
+                    <strong class="lg">Add Students</strong></a> to your class to begin assigning books to your
+                students.
+            </div>
+        </div>
+
+
+
+        <div class="clear"></div>
+
+    </div>
+    <div class="modalWindow_footer">
+        <button type="submit" class="btn btn-confirm btn-lg floatR" ng-disabled="!$ctrl.isValid()">Assign</button>
+        <button type="button" class="btn btn-xl btn-fauxLink floatR" ng-click="$ctrl.cancel()">Cancel</button>
+        <div class="clear"></div>
+    </div>
+</form>

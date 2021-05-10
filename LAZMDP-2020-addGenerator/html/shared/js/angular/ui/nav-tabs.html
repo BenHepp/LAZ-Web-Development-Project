@@ -1,0 +1,12 @@
+<ul class="navTabs" ng-class="$ctrl.modifier">
+    <li class="navItem" id="{{ pane.name }}"
+        ng-class="{ 'is-active': pane.selected }"
+        ng-repeat="pane in $ctrl.panes"
+        ng-click="$ctrl.select( pane )"
+    >
+        <a href="" ng-attr-aria-current="{{pane.selected ? 'page': undefined}}">
+            {{ pane.label }}
+        </a>
+    </li>
+</ul>
+<ng-transclude></ng-transclude>

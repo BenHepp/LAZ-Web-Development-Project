@@ -1,0 +1,85 @@
+<div class="worksheet_header js-worksheetHeader">
+    <instructions instructions-text="$ctrl.questionData.instructions"
+                  instructions-media="$ctrl.questionData.instructions_media"></instructions>
+</div>
+<div class="worksheet worksheet-timeline worksheet-transparent js-worksheet">
+    <div class="chartContainer h-layout">
+        <div class="timeline_chart js-chart js-timeline">
+            <div class="timeline_dates">
+                <div class="timeline_columnTitle">
+                    <video-player class="media_video" src="$ctrl.cols[0].media.videoPath"></video-player>
+                    <div class="media_image" ng-if="$ctrl.cols[0].media.imagePath"><img draggable="false"
+                                                                                        ng-src="{{$ctrl.cols[0].media.imagePath}}">
+                    </div>
+                    <div class="media_text" ng-if="$ctrl.cols[0].label !== ''"
+                         ng-bind-html="$ctrl.cols[0].label"></div>
+                    <div class="media_audio" ng-if="$ctrl.cols[0].media.audioPath">
+                        <div class="audioPlayer media_audio">
+                            <audio-player src="$ctrl.cols[0].media.audioPath"></audio-player>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline_datesContainer js-targets-table">
+                    <div ng-repeat="date in $ctrl.dates track by date.answer_id" class="timeline_date">
+                        <div class="worksheet_target work is-prepopulated js-non-draggable" data-dragtarget="{{2*$index + 1}}">
+                            <div class="answer" ng-if="date.answer">
+                                <video-player class="media_video" src="date.answer_media.videoPath"></video-player>
+                                <div class="media_image" ng-if="date.answer_media.imagePath"><img draggable="false"
+                                                                                                  ng-src="{{date.answer_media.imagePath}}">
+                                </div>
+                                <div class="media_text" ng-if="date.answer" ng-bind-html="date.answer"></div>
+                                <div class="media_audio" ng-if="date.answer_media.audioPath">
+                                    <div class="audioPlayer media_audio">
+                                        <audio-player src="date.answer_media.audioPath"></audio-player>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="timeline_events">
+                <div class="timeline_columnTitle">
+                    <video-player class="media_video" src="$ctrl.cols[1].media.videoPath"></video-player>
+                    <div class="media_image" ng-if="$ctrl.cols[1].media.imagePath"><img draggable="false"
+                                                                                        ng-src="{{$ctrl.cols[1].media.imagePath}}">
+                    </div>
+                    <div class="media_text" ng-if="$ctrl.cols[1].label !== ''"
+                         ng-bind-html="$ctrl.cols[1].label"></div>
+                    <div class="media_audio" ng-if="$ctrl.cols[1].media.audioPath">
+                        <div class="audioPlayer media_audio">
+                            <audio-player src="$ctrl.cols[1].media.audioPath"></audio-player>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline_eventsContainer js-answers-container ui-sortable">
+                    <drag-sortable-list drag-items="$ctrl.events" template="timeline">
+                        <div drag-and-replace ng-repeat="event in $ctrl.events track by event.answer_id"
+                             class="js-draggable draggable timeline_event textStyle ui-sortable-handle"
+                             isDraggable="{{$ctrl.getIsDraggable() && !event.is_correct}}"
+                             ng-class="{'js-non-draggable': !$ctrl.getIsDraggable() || event.is_correct,
+                                        'correct': $ctrl.getIsCorrect(event),
+                                        'incorrect': $ctrl.getIsIncorrect(event)
+                                        }"
+                             data-answerid="{{event.answer_id}}"
+                             data-dragtarget="{{2*$index+2}}">
+                            <video-player class="media_video" src="event.answer_media.videoPath"></video-player>
+                            <div class="media_image" ng-if="event.answer_media.imagePath"><img draggable="false"
+                                                                                               src="{{event.answer_media.imagePath}}">
+                            </div>
+                            <div class="media_text draggable-answer-label" ng-if="event.answer" ng-bind-html="event.answer"></div>
+                            <div class="media_audio" ng-if="event.answer_media.audioPath">
+                                <div class="audioPlayer media_audio">
+                                    <audio-player src="event.answer_media.audioPath"></audio-player>
+                                </div>
+                            </div>
+                        </div>
+                        <drag-replace-placeholder mode="list" template="timeline" style="display:none"></drag-replace-placeholder>
+                    </drag-sortable-list>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<robot-completion-popover ng-if="!$ctrl.isPreview" template-ctrl="$ctrl" requires-at-least-one-student-answer="false"></robot-completion-popover>
+

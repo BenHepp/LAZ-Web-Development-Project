@@ -1,0 +1,11 @@
+<div class="body-overlay" ng-click="$ctrl.close()"></div>
+<div class="modalWindow modalWindow-iframe">
+    <div ng-if="$ctrl.title" class="modalWindow_header">
+        {{$ctrl.title}}
+        <button class="closeBtn" ng-click="$ctrl.close()">&times;</button>
+    </div>
+    <div class="modalWindow_body">
+        <button ng-if="!$ctrl.title" class="closeBtn" ng-click="$ctrl.close()">&times;</button>
+        <iframe ng-src="{{::$ctrl.href}}" width="{{::$ctrl.width}}" height="{{::$ctrl.height}}" frameborder="0" allowtransparency="true" id="" name="" scrolling="" onload=""></iframe>
+    </div>
+</div>

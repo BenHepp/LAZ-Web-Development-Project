@@ -1,0 +1,41 @@
+<div class="worksheet worksheet-multipleChoice worksheet-white js-worksheet">
+    <div class="worksheet_header js-worksheetHeader">
+        <instructions instructions-text="$ctrl.questionData.prompt"
+                      instructions-media="$ctrl.questionData.question_media"></instructions>
+    </div>
+    <div class="chartContainer chartContainer-multipleChoice h-layout">
+        <div class="worksheet_chart js-chart">
+            <div class="multipleChoice_item js-answers">
+                <ul class="multipleChoice_choices"
+                    ng-repeat="choice in $ctrl.multipleChoices">
+                    <li class="multipleChoice_choice">
+                        <button class="multipleChoice_btn js-multipleChoice_choice"
+                            ng-class="{'active': choice.isActive,
+                                      'correct': $ctrl.getIsCorrect(choice),
+                                      'incorrect': $ctrl.getIsIncorrect(choice),
+                                      'disabled': $ctrl.getIsDisabled(choice)
+                                     }"
+                            data-answerid="{{choice.data.answer_id}}"
+                            ng-click="$ctrl.selectAnswer(choice)"
+                        >
+                            {{choice.letter}}
+                        </button>
+                        <div class="multipleChoice_media media_audio" ng-if="choice.data.answer_media.audioPath">
+                            <div class="audioPlayer">
+                                <audio-player src="choice.data.answer_media.audioPath"></audio-player>
+                            </div>
+                        </div>
+                        <div class="multipleChoice_media media_text" ng-if="choice.data.answer"
+                             ng-bind-html="choice.data.answer"></div>
+                        <video-player class="multipleChoice_media media_video"
+                            src="choice.data.answer_media.videoPath"></video-player>
+                        <div class="multipleChoice_media media_image" ng-if="choice.data.answer_media.imagePath">
+                            <img draggable="false" ng-src="{{choice.data.answer_media.imagePath}}" />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<robot-completion-popover ng-if="!$ctrl.isPreview" template-ctrl="$ctrl" requires-at-least-one-student-answer="true"></robot-completion-popover>

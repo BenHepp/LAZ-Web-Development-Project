@@ -1,0 +1,8 @@
+<div ng-transclude
+     isDraggable="false"
+     draggable="false"
+     ng-class="{'js-answer': $ctrl.template === 'dragAndReplace',
+                'timeline_event  ui-sortable-placeholder': $ctrl.template === 'timeline'}"
+     style="visibility: hidden">
+</div>
+<span ng-if="$ctrl.mode === 'grid'" class="placeholder_index">{{$ctrl.dragTarget}}</span>

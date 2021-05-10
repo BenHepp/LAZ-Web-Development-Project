@@ -1,0 +1,24 @@
+<div class="worksheet worksheet-transparent worksheet-readOnly js-worksheet">
+    <div class="worksheet_header">
+        <instructions instructions-text="$ctrl.questionData.instructions" instructions-media="$ctrl.questionData.instructions_media"></instructions>
+    </div>
+    <div class="chartContainer h-layout">
+        <div class="readOnly_chart js-targetContainer js-chart" ng-repeat="choice in $ctrl.questionData.choices">
+            <video-player class="media_video" src="choice.answer_media.videoPath"></video-player>
+            <div class="media_image" ng-if="choice.answer_media.imagePath"><img draggable="false"
+                                                                                ng-src="{{choice.answer_media.imagePath}}">
+            </div>
+            <div class="media_text" ng-if="choice.answer" ng-bind-html="choice.answer"></div>
+            <div class="media_audio" ng-if="choice.answer_media.audioPath">
+                <div class="audioPlayer media_audio">
+                    <audio-player src="choice.answer_media.audioPath"></audio-player>
+                </div>
+            </div>
+        </div>
+        <div class="readOnly_passage" ng-if="$ctrl.questionData.passage.text">
+            <span class="readOnly_passageTitle" ng-if="$ctrl.questionData.passage.title" ng-bind-html="$ctrl.questionData.passage.title"></span>
+            <span class="readOnly_passageText" ng-if="$ctrl.questionData.passage.text" ng-bind-html="$ctrl.questionData.passage.text"></span>
+        </div>
+    </div>
+</div>
+<robot-completion-popover ng-if="!$ctrl.isPreview" template-ctrl="$ctrl" requires-at-least-one-student-answer="false"></robot-completion-popover>

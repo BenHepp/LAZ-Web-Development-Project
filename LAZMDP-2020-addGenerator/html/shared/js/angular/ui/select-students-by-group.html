@@ -1,0 +1,12 @@
+<div class="groupFilter">
+    <strong>Assign by groups:</strong>
+    <a ng-click="$ctrl.selectAll()" tabindex="0">
+        All Students
+    </a>
+    <a ng-click="$ctrl.selectGroup(group)" ng-repeat="group in $ctrl.groups track by group.grouping_id" tabindex="0">
+        {{ group.grouping_name }}
+    </a>
+    <a ng-click="$ctrl.clearAll()" tabindex="0">
+        Unselect All
+    </a>
+</div>

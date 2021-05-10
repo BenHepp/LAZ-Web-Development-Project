@@ -1,0 +1,141 @@
+<div class="worksheet_header js-worksheetHeader">
+    <instructions instructions-text="$ctrl.questionData.instructions"
+                  instructions-media="$ctrl.questionData.instructions_media"></instructions>
+</div>
+<div class="worksheet worksheet-fillInTheBlank worksheet-transparent js-worksheet">
+    <div ng-if="$ctrl.mode === $ctrl.DRAG_AND_DROP"
+         class="answerBankContainer h-layout js-answerBank js-bank-container">
+        <div class="bank-table table-standard no-border answerBank">
+            <div ng-repeat="choice in $ctrl.dragAndDrop.answerBank track by $index"
+                 drag-and-drop answerbank="$ctrl.dragAndDrop.answerBank" dropped="$ctrl.dragAndDrop.droppedItems"
+                 item="choice" autoregenerate="$ctrl.dragAndDrop.autoRegenerate"
+                 class="draggable answerWrap ui-draggable ui-draggable-handle"
+                 isDraggable="{{$ctrl.getIsDraggable()}}"
+                 ng-class="{'ui-draggable-disabled': !$ctrl.getIsDraggable()}"
+                 data-answerid="{{choice.answer_id}}"
+                 ng-show="!choice.isHidden"
+                 index="{{$index}}"
+            >
+                <div class="answer">
+                    <video-player class="media_video" src="choice.answer_media.videoPath"></video-player>
+                    <div class="media_image" ng-if="choice.answer_media.imagePath">
+                        <img draggable="false" ng-src="{{choice.answer_media.imagePath}}">
+                    </div>
+                    <div class="media_text" ng-if="choice.answer" ng-bind-html="choice.answer"></div>
+                    <div class="media_audio" ng-if="choice.answer_media.audioPath">
+                        <div class="audioPlayer media_audio">
+                            <audio-player src="choice.answer_media.audioPath"></audio-player>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chartContainer h-layout">
+        <!--drag and drop mode-->
+        <div ng-if="$ctrl.mode === $ctrl.DRAG_AND_DROP"
+             class="fillInTheBlank_chart js-chart"
+             ng-class="{'fillInTheBlank_chart-sentenceLayout': !$ctrl.isWordLayout,
+                        'fillInTheBlank_chart-wordLayout': $ctrl.isWordLayout}">
+            <div ng-repeat="sentenceObj in $ctrl.sentences track by $index"
+                 ng-init="sentenceIndex = $index"
+                 class="fillInTheBlank_targetContainer">
+                <video-player class="media_video" src="sentenceObj.sentence.sentence_media.videoPath"></video-player>
+                <div class="media_image" ng-if="sentenceObj.sentence.sentence_media.imagePath">
+                    <img draggable="false" ng-src="{{sentenceObj.sentence.sentence_media.imagePath}}">
+                </div>
+                <div class="fillInTheBlank_sentence">
+                    <div class="audioPlayer media_audio" ng-if="sentenceObj.sentence.sentence_media.audioPath">
+                        <audio-player src="sentenceObj.sentence.sentence_media.audioPath"></audio-player>
+                    </div>
+                    <span ng-repeat="fragment in sentenceObj.fragments track by $index">
+                        <span ng-if="fragment.tokens !== $ctrl.BLANK_TOKEN" ng-bind-html="fragment.tokens"></span>
+                        <div ng-if="fragment.tokens === $ctrl.BLANK_TOKEN && $ctrl.isEmptyTarget(fragment.dragTarget)"
+                             class="drop-target answerTarget js-is-answer ui-droppable"
+                             ng-class="{'incorrect': $ctrl.getIsIncorrect($ctrl.getItem(fragment.dragTarget))}"
+                             data-dragtarget="{{fragment.dragTarget}}"
+                             data-answerid="{{$ctrl.getItem(fragment.dragTarget).answer_id}}"
+                        >
+                            _______
+                        </div>
+                        <div ng-if="fragment.tokens === $ctrl.BLANK_TOKEN && !$ctrl.isEmptyTarget(fragment.dragTarget)"
+                             class="drop-target answerTarget js-is-answer ui-droppable ui-droppable-disabled"
+                             ng-class="{'is-prepopulated': $ctrl.getItem(fragment.dragTarget).prepopulate,
+                                    'dropped': $ctrl.getIsDropped($ctrl.getItem(fragment.dragTarget)),
+                                    'correct': $ctrl.getIsCorrect($ctrl.getItem(fragment.dragTarget))
+                                    }"
+                             data-dragtarget="{{fragment.dragTarget}}"
+                             data-answerid="{{$ctrl.getItem(fragment.dragTarget).answer_id}}">
+                            <div class="answer dropped" ng-if="$ctrl.getItem(fragment.dragTarget).answer" draggable="false">
+                                <video-player class="media_video" src="$ctrl.getItem(fragment.dragTarget).answer_media.videoPath"></video-player>
+                                <div class="media_image" ng-if="$ctrl.getItem(fragment.dragTarget).answer_media.imagePath">
+                                    <img draggable="false" ng-src="{{$ctrl.getItem(fragment.dragTarget).answer_media.imagePath}}">
+                                </div>
+                                <div class="media_text" ng-if="$ctrl.getItem(fragment.dragTarget).answer"
+                                     ng-bind-html="$ctrl.getItem(fragment.dragTarget).answer"></div>
+                                <div class="media_audio"
+                                     ng-if="$ctrl.getItem(fragment.dragTarget).answer_media.audioPath">
+                                    <audio-player src="$ctrl.getItem(fragment.dragTarget).answer_media.audioPath"></audio-player>
+                                </div>
+                                <div ng-if="$ctrl.getIsRemovable($ctrl.getItem(fragment.dragTarget))"
+                                     ng-click="$ctrl.removeDroppedItem($ctrl.getItem(fragment.dragTarget), fragment.dragTarget-1)"
+                                     class="closeBut js-clickable"></div>
+                            </div>
+                        </div>
+                    </span>
+                </div><!-- /.fillInTheBlank_sentence -->
+            </div><!-- /.fillInTheBlank_targetContainer -->
+        </div><!-- /.fillInTheBlank_chart -->
+
+        <!-- drag and replace (sentence scramble) mode -->
+        <div ng-if="$ctrl.mode === $ctrl.DRAG_AND_REPLACE"
+             ng-repeat="sentenceObj in $ctrl.sentences track by $index"
+             ng-init="sentenceIndex = $index"
+             class="ui-sortable fillInTheBlank_chart fillInTheBlank_chart-sentenceScramble js-chart">
+            <drag-sortable-list drag-items="$ctrl.dragAndReplace.items" template="fillInTheBlank"
+                                sentences="$ctrl.sentences"
+                                class="fillInTheBlank_targetContainer">
+                <video-player class="media_video" src="sentenceObj.sentence.sentence_media.videoPath"></video-player>
+                <div class="media_image" ng-if="sentenceObj.sentence.sentence_media.imagePath">
+                    <img draggable="false" ng-src="{{sentenceObj.sentence.sentence_media.imagePath}}" />
+                </div>
+                <div class="media_audio" ng-if="sentenceObj.sentence.sentence_media.audioPath">
+                    <div class="audioPlayer media_audio">
+                        <audio-player src="sentenceObj.sentence.sentence_media.audioPath"></audio-player>
+                    </div>
+                </div>
+                <div ng-repeat="fragment in sentenceObj.fragments"
+                     drag-and-replace enabled="fragment.tokens === $ctrl.BLANK_TOKEN"
+                     isDraggable="{{fragment.tokens === $ctrl.BLANK_TOKEN && (!$ctrl.getReadOnly() && !$ctrl.isPerfectScore && !$ctrl.isAttemptTwo && !$ctrl.getItem(fragment.dragTarget).prepopulate && !$ctrl.getItem(fragment.dragTarget).is_correct)}}"
+                     class="draggable js-draggable answerWrap js-answer textStyle ui-sortable-handle"
+                     ng-class="{'js-non-draggable': fragment.tokens !== $ctrl.BLANK_TOKEN || !$ctrl.getIsDraggable() || $ctrl.getItem(fragment.dragTarget).prepopulate || $ctrl.getItem(fragment.dragTarget).is_correct,
+                                'is-prepopulated': $ctrl.getItem(fragment.dragTarget).prepopulate,
+                                'fillInTheBlank_sentenceFragment': fragment.tokens !== $ctrl.BLANK_TOKEN,
+                                'sentenceScramble_answerWrap': fragment.tokens === $ctrl.BLANK_TOKEN,
+                                'correct': $ctrl.getIsCorrect($ctrl.getItem(fragment.dragTarget)),
+                                'incorrect': $ctrl.getIsIncorrect($ctrl.getItem(fragment.dragTarget))
+                                }"
+                     data-answerid="{{$ctrl.getItem(fragment.dragTarget).answer_id}}"
+                     data-dragtarget="{{fragment.dragTarget}}"
+                     sentence_index="{{sentenceIndex}}">
+                    <span ng-if="fragment.tokens !== $ctrl.BLANK_TOKEN" ng-bind-html="fragment.tokens"></span>
+                    <span ng-if="fragment.tokens === $ctrl.BLANK_TOKEN">
+                        <video-player class="media_video" src="$ctrl.getItem(fragment.dragTarget).item.answer_media.videoPath"></video-player>
+                        <div class="media_image" ng-if="$ctrl.getItem(fragment.dragTarget).answer_media.imagePath">
+                            <img draggable="false" ng-src="{{$ctrl.getItem(fragment.dragTarget).answer_media.imagePath}}">
+                        </div>
+                        <div class="media_audio" ng-if="$ctrl.getItem(fragment.dragTarget).answer_media.audioPath">
+                            <audio-player src="$ctrl.getItem(fragment.dragTarget).answer_media.audioPath"></audio-player>
+                        </div>
+                        <div class="media_text answer_text" ng-if="$ctrl.getItem(fragment.dragTarget).answer" ng-bind-html="$ctrl.getItem(fragment.dragTarget).answer">
+                        </div>
+                    </span>
+                </div>
+                <drag-replace-placeholder mode="list" template="fillInTheBlanks" style="display:none"
+                    class="sentenceScramble_answerWrap sentenceScramble_answerWrap-placeholder draggable ui-sortable-handle ui-sortable-placeholder js-is-answer">
+                </drag-replace-placeholder>
+            </drag-sortable-list>
+        </div>
+    </div>
+</div><!-- /.chartContainer -->
+<robot-completion-popover ng-if="!$ctrl.isPreview" template-ctrl="$ctrl" requires-at-least-one-student-answer="$ctrl.mode === $ctrl.DRAG_AND_DROP"></robot-completion-popover>

@@ -1,0 +1,20 @@
+{
+    "name": "a/z",
+    "description": "Laz third party support libraries",
+    "license": "proprietary",
+    "config": {
+        "platorm": {
+            "php": "5.6.25"
+        }
+    },
+    "require": {
+        "php": ">=5.6.24 <=5.6.25",
+        "zendframework/zend-diactoros": "^1.8",
+        "aura/autoload": "^2.0",
+        "ezyang/htmlpurifier": "4.6.0",
+        "aws/aws-sdk-php": "3.32.4",
+        "phpseclib/phpseclib": "0.3.6",
+        "psr/log": "^1.0",
+        "monolog/monolog": "^1.23"
+    }
+}

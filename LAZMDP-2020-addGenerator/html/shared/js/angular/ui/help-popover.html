@@ -1,0 +1,21 @@
+<popover class="popover-arrow"
+    ng-attr-open-on-hover="{{$ctrl.openOnHover()}}"
+    ng-keydown="$ctrl.keydown($event)"
+    on-inited="$ctrl.setPopover(ctrl)"
+    on-open-changed="$ctrl.onOpenChanged(open)">
+    <popover-target>
+        <a
+            ng-class="$ctrl.mainLinkClassName()"
+            aria-label="{{$ctrl.label}}"
+            href="javascript:void(0);"
+            tabindex="0"
+            role="button"
+            aria-expanded="{{$ctrl.popoverCtrl.is_open}}"
+            title="help">
+            <div class="icon icon-question-sign popoverArrow"></div>
+        </a>
+    </popover-target>
+    <popover-content position="{ my: 'center top+10', at: 'center bottom', collision: 'fit none' }">
+        <ng-transclude></ng-transclude>
+    </popover-content>
+</popover>

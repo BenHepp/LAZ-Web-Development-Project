@@ -1,0 +1,74 @@
+<div ng-if="! $ctrl.isPackResult">
+    <div class="menuScreen">
+
+        <div class="header">
+            <div class="header_container h-layout">
+                <a class="backBtn js-clickable" ng-href="{{$ctrl.linkToStudentArea}}">Back</a>
+                <a class="backBtn js-clickable" ng-if="$ctrl.doReturnToPackResult()" ng-href="{{$ctrl.linkToPackResult}}">Back</a>
+                <span class="title">
+                    {{$ctrl.displayTitle}}
+                </span>
+            </div>
+        </div>
+
+        <div class="menuScreen_container">
+            <div class="menuScreen_header">
+                <span class="menuScreen_title">
+                    {{$ctrl.displayTitle}}
+                </span>
+            </div>
+
+            <ul class="menuScreen_menu">
+                <li class="menuScreen_menuItem" ng-repeat="worksheet in $ctrl.worksheetData track by $index">
+                    <div ng-class="{
+                        'menuScreen_menuPass': $ctrl.isWorksheetComplete(worksheet),
+                        'js-hidden': ! $ctrl.isWorksheetComplete(worksheet)
+                        }">
+                    </div>
+                    <a class="menuScreen_menuItemLink js-clickable"
+                       ng-click="$ctrl.goToSelectedWorksheet({index: $index})"
+                       ng-class="{
+                        'active': $ctrl.activateSpecificWorksheet($index, worksheet),
+                        'disabled': $ctrl.deactivateSpecificWorksheet($index, worksheet)
+                        }"
+                       ng-style="{'background-image': !! $ctrl.getTitleImagePath(worksheet) ? 'url(' + $ctrl.getTitleImagePath(worksheet) + ')' : '' }">
+                        <span class="menuScreen_menuItemHeading">{{worksheet.quiz_info.title}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div ng-if="$ctrl.isPackResult">
+    <div class="box box-white padAll4" style="min-height: 1000px;">
+        <div class="header js-header">
+            <div class="title h-layout">{{$ctrl.categoryName}}</div>
+            <a style="cursor: pointer; color: red;" ng-href="{{$ctrl.linkToPackDetails}}" class="js-clickable">
+                View Pack Details >
+            </a>
+        </div>
+
+        <div>
+            {{$ctrl.displayTitle}}
+        </div>
+
+        <ul style="list-style-type: none;">
+            <li ng-repeat="worksheet in $ctrl.worksheetData track by $index">
+                <div ng-class="{
+                    'menuScreen_menuPass': $ctrl.scoreResultsPerWorksheet[$index] >= $ctrl.passThreshold,
+                    'menuScreen_menuFail': $ctrl.scoreResultsPerWorksheet[$index] < $ctrl.passThreshold
+                }">
+                </div>
+                {{$ctrl.percentageResultsPerWorksheet[$index]}}
+                <a style="cursor: pointer; color: lightskyblue;" class="js-clickable"
+                   ng-click="$ctrl.goToSelectedWorksheet({index: $index})">
+                    <span>{{worksheet.quiz_info.title}}</span>
+                </a>
+                <br/>
+                <br/>
+                <div class="clear"></div>
+            </li>
+        </ul>
+    </div>
+</div>

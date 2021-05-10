@@ -1,0 +1,76 @@
+#definition-box {
+    /* float: left;  */
+    padding: 0px 20px;
+    z-index: 100;
+}
+
+.tutorial-buttons {
+    display: flex;
+    position: absolute; 
+    /* height: 10%;
+    width: 10%; */
+    bottom: 2%;
+    right: 4%;
+    z-index: 1000;
+    pointer-events:  auto;
+}
+
+.disable-when-highlighted {
+    pointer-events:  none;
+    -moz-user-focus: none;
+    -webkit-user-focus: none;
+    -ms-user-focus: none;
+    -moz-user-modify: read-only;
+    -webkit-user-modify: read-only;
+    -ms-user-modify: read-only;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.highlight-with-shadow {
+    box-shadow: 0 0 0 99999px rgba(0, 0, 0, .5);
+    z-index: 999;
+    /* position: relative; */
+    pointer-events:  auto;
+}
+
+.highlight {
+    z-index: 1000;
+    position: relative;
+    pointer-events:  auto;
+}
+
+
+#definition {
+    color: #54067F;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 300px;
+    border-radius: 10%;
+    background:radial-gradient(ellipse, #9edfdb, #8ebddc);
+    position: relative;
+}
+
+p {
+    display: block;
+}
+
+.definition-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 60px;
+}
+
+.definition-button:active { 
+    -webkit-filter: drop-shadow(0px 0px 5px white);
+    filter:         drop-shadow(0px 0px 5px white); 
+    transform:scale(1.1);
+}
+

@@ -1,0 +1,14 @@
+<div class="container">
+    <div id="definition-box">
+        <a ng-click="$ctrl.downShellButton()"> 
+            <img class="definition-button" ng-class="{highlight: $ctrl.isStepNum($ctrl.DEFINITIONBOX)}" src="shared/images/mdp/arrow_up.svg"> 
+        </a> 
+        <p id="definition" ng-class="{'highlight-with-shadow': $ctrl.isStepNum($ctrl.DEFINITIONBOX)}">
+            {{$ctrl.displayHighlightedDefinition()}}
+        </p>
+        <a ng-click="$ctrl.upShellButton()"> 
+            <img class="definition-button" ng-class="{highlight: $ctrl.isStepNum($ctrl.DEFINITIONBOX)}" src="shared/images/mdp/arrow_down.svg"> 
+        </a>
+    </div>
+    <p ng-if="$ctrl.isStepNum($ctrl.DEFINITIONBOX)" id="step-one-bubble" class="tutorial-speech-bubble speech-bubble-arrow-up"> This is the definition of the words on the puzzle! </p>
+</div>

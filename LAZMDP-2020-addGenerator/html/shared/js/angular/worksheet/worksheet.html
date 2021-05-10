@@ -1,0 +1,118 @@
+<div ng-switch="$ctrl.worksheetDataStatus">
+    <div ng-switch-when="pending" class="body-overlay body-overlay-white">
+        <div class="loading_spinner" style="top: 40%;"></div>
+    </div>
+
+    <div ng-switch-when="completed">
+        <div class="worksheetWrapper js-worksheetWrapper {{$ctrl.backgroundClass()}}" ng-style="{'background-image': 'url(' + $ctrl.backgroundImage() + ')' }">
+            <div ng-if="$ctrl.isPreview && $ctrl.showWorksheet && !$ctrl.isMobile" class="header_dark">
+                <div class="header_container h-layout">
+                    <div class="title xl">Teacher Preview</div>
+                    <div class="floatL" style="display:inline-block">
+                        <div class="title floatL sm">Show Correct Answers&nbsp;&nbsp;</div>
+                        <laz-toggle-switch
+                            ng-model="$ctrl.toggleReadOnly"
+                            ng-model-options="{getterSetter: true}"
+                        ></laz-toggle-switch>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="$ctrl.showWorksheet && !$ctrl.isMobile" class="header js-header">
+                <div class="header_container h-layout">
+                    <a ng-if="!$ctrl.isPreview" href="{{$ctrl.backLink}}" class="backBtn js-clickable">Back</a>
+                    <a id="worksheet-menu-button" ng-if="$ctrl.permitMultipleWorksheetLayout" ng-click="$ctrl.goToMultipleWorksheetLayout()" class="backBtn js-clickable">{{$ctrl.multipleLayoutBackButtonWording}}</a>
+
+                    <div class="title">{{$ctrl.worksheet.displayTitle}} - {{$ctrl.worksheet.title}}</div>
+
+                    <navigation
+                        question-index="$ctrl.questionIndex"
+                        num-questions="$ctrl.worksheet.numQuestionsRange">
+                    </navigation>
+                </div>
+            </div>
+
+            <multiple-worksheet-layout
+                ng-if="!$ctrl.showWorksheet"
+                go-to-worksheet="$ctrl.goToWorksheet(index)">
+            </multiple-worksheet-layout>
+
+            <span ng-if="$ctrl.showWorksheet" ng-repeat="question in $ctrl.worksheet.questions">
+                <div ng-switch="question.question_format_name" ng-if="question.index == $ctrl.currentQuestionIndex()">
+                    <multiple-choice
+                        question-data="question"
+                        student-answers="$ctrl.getStudentAnswersForQuestion(question.index)"
+                        is-last-question="$ctrl.getIsLastQuestion(question.index)"
+                        ng-switch-when="multiple choice">
+                    </multiple-choice>
+                    <constructed-response
+                        question-data="question"
+                        student-answers="$ctrl.getStudentAnswersForQuestion(question.index)"
+                        is-last-question="$ctrl.getIsLastQuestion(question.index)"
+                        ng-switch-when="constructed prose response">
+                    </constructed-response>
+                    <main-idea-detail
+                        question-data="question"
+                        student-answers="$ctrl.getStudentAnswersForQuestion(question.index)"
+                        is-last-question="$ctrl.getIsLastQuestion(question.index)"
+                        ng-switch-when="drag and drop main idea">
+                    </main-idea-detail>
+                    <cause-effect
+                        question-data="question"
+                        student-answers="$ctrl.getStudentAnswersForQuestion(question.index)"
+                        is-last-question="$ctrl.getIsLastQuestion(question.index)"
+                        ng-switch-when="cause and effect diagram">
+                    </cause-effect>
+                    <multiple-drag-drop
+                        question-data="question"
+                        student-answers="$ctrl.getStudentAnswersForQuestion(question.index)"
+                        is-last-question="$ctrl.getIsLastQuestion(question.index)"
+                        ng-switch-when="multiple drag and drop">
+                    </multiple-drag-drop>
+                    <event-sequence
+                        question-data="question"
+                        student-answers="$ctrl.getStudentAnswersForQuestion(question.index)"
+                        is-last-question="$ctrl.getIsLastQuestion(question.index)"
+                        ng-switch-when="event sequencing">
+                    </event-sequence>
+                    <fill-in-the-blanks
+                        question-data="question"
+                        student-answers="$ctrl.getStudentAnswersForQuestion(question.index)"
+                        is-last-question="$ctrl.getIsLastQuestion(question.index)"
+                        ng-switch-when="fill in the blanks">
+                    </fill-in-the-blanks>
+                    <highlight-category
+                        question-data="question"
+                        student-answers="$ctrl.getStudentAnswersForQuestion(question.index)"
+                        is-last-question="$ctrl.getIsLastQuestion(question.index)"
+                        ng-switch-when="highlight category">
+                    </highlight-category>
+                    <timeline
+                        question-data="question"
+                        student-answers="$ctrl.getStudentAnswersForQuestion(question.index)"
+                        is-last-question="$ctrl.getIsLastQuestion(question.index)"
+                        ng-switch-when="timeline">
+                    </timeline>
+                    <drag-replace
+                        question-data="question"
+                        student-answers="$ctrl.getStudentAnswersForQuestion(question.index)"
+                        is-last-question="$ctrl.getIsLastQuestion(question.index)"
+                        ng-switch-when="drag and drop reorder">
+                    </drag-replace>
+                    <read-only
+                        question-data="question"
+                        student-answers="$ctrl.getStudentAnswersForQuestion(question.index)"
+                        is-last-question="$ctrl.getIsLastQuestion(question.index)"
+                        ng-switch-when="read-only">
+                    </read-only>
+                    <image-labeling
+                        question-data="question"
+                        student-answers="$ctrl.getStudentAnswersForQuestion(question.index)"
+                        is-last-question="$ctrl.getIsLastQuestion(question.index)"
+                        ng-switch-when="image labeling">
+                    </image-labeling>
+                </div>
+            </span>
+            <photo-credits credits="$ctrl.worksheet.copyright" ng-if="$ctrl.worksheet.copyright"></photo-credits>
+        </div><!-- /.worksheetWrapper -->
+    </div>
+</div>
