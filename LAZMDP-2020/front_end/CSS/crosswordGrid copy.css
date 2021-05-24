@@ -1,0 +1,241 @@
+input {
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    border-radius: 9px;
+    border-color: #a3e7e0;
+    text-align: center; 
+    border-width: medium;
+    padding: 1px;
+    margin: 0px;
+    background-color: transparent;
+}
+
+.highlight-cell-with-shadow {
+    background-color: #1a1e48;
+    box-shadow: 0 0 0 99999px rgba(0, 0, 0, .4);
+    z-index: 999;
+    position: relative;
+    pointer-events:  auto;
+}
+
+.highlight-cell-with-shadow:focus{
+    box-shadow: 0 0 0 99999px rgba(0, 0, 0, .4);
+}
+
+input[type="text"] {
+    width: 30px;
+    padding: 1px;
+    margin: 0px;
+    border-style: solid;
+    color: white;
+}
+
+input:focus {
+    outline: none !important;
+    box-sizing: border-box;
+    /* background-color: blue; */
+    border-radius: 9px;
+    border-color: solid #a3e7e0;
+    background-color: #006CF0;
+    border-width: medium;
+    color: transparent;
+    text-shadow: 0 0 0 #ffffff;
+}
+
+input::selection {background: transparent;}
+
+.skip-button, .next-button, .back-button {
+    height: 40px;
+    width: 100px;
+}
+
+#step-one-bubble {
+   /* top: 75%;
+   left: 30%; */
+}
+
+#step-two-bubble {
+   position: relative;
+   width: 250px;
+   margin-bottom: 25px;
+}
+
+#step-three-bubble {
+    position: relative;
+    width: 250px;
+    margin-bottom: 25px;
+}
+
+#step-four-bubble {
+    position: relative;
+    width: 250px;
+    margin-bottom: 25px;
+}
+
+#step-five-bubble {
+    position: relative;
+    width: 300px;
+    margin-top: 30px;
+}
+
+#step-five-bubble::after {
+    left: 30%;
+}
+
+.tutorial-speech-bubble {
+    /* position: absolute; */
+    text-align: center;
+    position: absolute;
+	background: white;
+    border-radius: 40px;
+    padding: 10px;
+    color: black;
+    /* display: block; */
+    /* margin-left: auto;
+    margin-right: auto; */
+    /* width: fit-content; */
+    z-index: 2000;
+}
+
+.tutorial-speech-bubble::after {
+    content: '';
+	position: absolute;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	margin-left: -60px;
+}
+
+.speech-bubble-arrow-up::after {
+    top: -20px;
+    border-bottom-color: white;
+    border-top: 0px;
+}
+
+.speech-bubble-arrow-down::after {
+    bottom: 0;
+    border-top-color: white;
+    border-bottom: 0;
+    margin-bottom: -20px;
+}
+
+
+table {
+    box-sizing: border-box;
+    border-radius: 9px;
+    border-color: transparent;
+}
+
+td {
+    box-sizing: border-box;
+    border-radius: 9px;
+    border-color: transparent;
+}
+
+.ng-hide:not(.ng-hide-animate) {
+    visibility: hidden !important;
+    display: table-cell !important;
+}
+
+.completedWord {
+    /* pointer-events: none; */
+    background-color: #7D37DD;
+}
+
+.incorrectLetter {
+    background-color: #B0171F;
+}
+
+.clickedWord {
+    border: solid #a3e7e0;
+    border-width: thick;
+}
+
+.hintedWord {
+    animation: burst 1s 1;
+    background-color: #B0171F;
+}
+
+.specialCharacter {
+    background-color: gray;
+    border-color: rgb(75, 75, 75);
+    pointer-events:  none;
+    -moz-user-focus: none;
+    -webkit-user-focus: none;
+    -ms-user-focus: none;
+    -moz-user-modify: read-only;
+    -webkit-user-modify: read-only;
+    -ms-user-modify: read-only;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+/* .loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+} */
+
+/* https://loading.io/css/ Creative Commons license starts*/
+.lds-ripple {
+    display: flex;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+.lds-ripple div {
+    position: absolute;
+    border: 4px solid #9edfdb;
+    opacity: 1;
+    border-radius: 50%;
+    animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.lds-ripple div:nth-child(2) {
+    animation-delay: -0.5s;
+}
+@keyframes lds-ripple {
+    0% {
+        top: 36px;
+        left: 36px;
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        top: 0px;
+        left: 0px;
+        width: 72px;
+        height: 72px;
+        opacity: 0;
+    }
+}
+/* https://loading.io/css/ Creative Commons license*/
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes burst {
+    0% {background-color: white;}
+    /* 50% {background-color: rgb(196, 0, 0);} */
+    100% {background-color: #B0171F;}
+} 
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0,0,0,0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+}
