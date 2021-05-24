@@ -1,8 +1,0 @@
-<div class="messageReporter">
-    <div class="messageReporter_messages">
-        <div class="messageReporter_message" ng-class="$ctrl.getMessageClass(message)" ng-repeat="message in $ctrl.messages track by message.id">
-            <span class="closeBtn" ng-click="$ctrl.remove(message)">&times;</span>
-            {{message.message}} <a ng-if="message.linkText" ng-click="$ctrl.callback(message);">{{message.linkText}}</a>
-        </div>
-    </div>
-</div>
